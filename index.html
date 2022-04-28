@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/style.css">
+   <title>Converter</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <header>
+         <div class="logo"> <img src="./img/logo.svg" alt="logo"></div>
+         <ul class="header__menu">
+            <li><a class="header-list menu_activ" href="#">БАНК</a></li>
+            <li><a class="header-list" href="#">БИЗНЕС</a></li>
+            <li><a class="header-list" href="#">ИНВЕСТИЦИИ</a></li>
+            <li><a class="header-list" href="#">СТРАХОВАНИЕ</a></li>
+            <li><a class="header-list" href="#">МОБАЙЛ</a></li>
+            <li><a class="header-list" href="#">ПУТЕШЕСТВИЯ</a></li>
+            <li><a class="header-list" href="#">РАЗВЛЕЧЕНИЯ</a></li>
+         </ul>
+         <div class="button">ВОЙТИ</div>
+      </header>
+      <h1>Конвертер валют онлайн</h1>
+      <main class="container">
+         <div class="converter__have">
+            <h6 class="title">У меня есть</h6>
+            <div class="have__content">
+               <ul class="content_list">
+                  <li class="have-list list have-list_active">RUB</li>
+                  <li class="have-list list">USD</li>
+                  <li class="have-list list">EUR</li>
+                  <li class="have-list list">GBP</li>
+               </ul>
+               <div class="input">
+                  <input type="have_text input-text">
+                  <p class="hint">1 <span class="have_left-currency"></span><span class="have_transfer"></span><span
+                        class="have_right-currency"></span></p>
+               </div>
+            </div>
+         </div>
+         <div></div>
+         <div class="converter__want">
+            <h6 class="title">Хочу приобрести</h6>
+            <div class="want__content">
+               <ul class="content_list">
+                  <li class="want-list list">RUB</li>
+                  <li class="want-list list">USD</li>
+                  <li class="want-list list">EUR</li>
+                  <li class="want-list list">GBP</li>
+               </ul>
+               <div class="input">
+                  <input type="want_text input-text">
+                  <p class="hint">1 <span class="want_left-currency"></span><span class="want_transfer"></span><span
+                        class="want_right-currency"></span></p>
+               </div>
+            </div>
+         </div>
+      </main>
+   </div>
+   <script src="./js/script.js"></script>
+</body>
+
+</html>
