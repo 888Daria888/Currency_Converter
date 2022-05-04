@@ -146,14 +146,17 @@ h1 {
    border-right: 1px solid #E5E5E5;
 }
 
+
 .list:last-child {
    border-right: none
 }
 
-.have-list_active {
+.active {
    background-color: #833AE0;
    border: 1px solid #833AE0;
 }
+
+
 
 .input {
    margin-top: 20px;
