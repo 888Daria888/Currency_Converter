@@ -56,7 +56,7 @@ function getCurrencyCourse() {
    let y = activeCurrency[1].innerText
    let haveInputCours = document.querySelector('.have_text')
    let wantInputCours = document.querySelector('.want_text')
-   
+
    if (x === y) {
       wantInputCours.value = haveInputCours.value
       haveCurrency.innerHTML = `1 ${x} = 1.00 ${y}`
@@ -64,15 +64,19 @@ function getCurrencyCourse() {
    }
    else {
       fetch(
-         `https://api.exchangerate.host/latest?base=${x}&symbols=${y}`
+         `https://api.exchangerate.host/latest?base=${x}&symbols=${y}&places=4`
       )
          .then((res) => res.json())
          .then((data) => {
-            let summCourseY = haveInputCours.value * data.rates[y]
-            wantInputCours.value = summCourseY
+            haveInputCours.addEventListener('input', (e) => {
+               wantInputCours.value = e.target.value * data.rates[y]
+            })
+            wantInputCours.addEventListener('input', (e) => {
+               haveInputCours.value = e.target.value * data.rates[x]
+            })
             haveCurrency.innerHTML = `${haveInputCours.value} ${x} = ${wantInputCours.value} ${y}`
             wantCurrency.innerHTML = `${wantInputCours.value} ${y} = ${haveInputCours.value} ${x}`
          })
-         .catch((err)=>alert('упс.что-то пошло не так'))
+         .catch((err) => alert('упс.что-то пошло не так'))
    }
 }
