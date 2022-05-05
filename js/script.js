@@ -56,9 +56,9 @@ function getCurrencyCourse() {
    let y = activeCurrency[1].innerText
    let haveInputCours = document.querySelector('.have_text')
    let wantInputCours = document.querySelector('.want_text')
+   
    if (x === y) {
       wantInputCours.value = haveInputCours.value
-      
       haveCurrency.innerHTML = `1 ${x} = 1.00 ${y}`
       wantCurrency.innerHTML = `1 ${x} = 1.00 ${y}`
    }
