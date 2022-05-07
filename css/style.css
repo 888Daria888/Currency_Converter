@@ -1,25 +1,9 @@
-::before,
-::after {
+
+*{
+   margin: 0;
+   padding: 0;
    box-sizing: border-box;
 }
-
-body,
-h1,
-h6,
-p,
-ul[class],
-ol[class],
-li {
-   margin: 0;
-}
-
-ul[class],
-ol[class] {
-   padding: 0;
-}
-
-
-a:first-child {}
 
 li {
    list-style-type: none;
@@ -134,7 +118,13 @@ h1 {
    border-radius: 3px;
 }
 
-.list {
+button {
+   outline: none;
+   padding: 0;
+   border: none;
+   font: inherit;
+   background: transparent;
+   border-right: 1px solid #E5E5E5;
    font-weight: 400;
    font-size: 12px;
    line-height: 14px;
@@ -143,8 +133,8 @@ h1 {
    display: flex;
    justify-content: center;
    align-items: center;
-   border-right: 1px solid #E5E5E5;
 }
+
 
 
 .list:last-child {
@@ -190,18 +180,3 @@ input {
    padding: 0px 0px 10px 16px;
 }
 
-.have_input_left-currency {}
-
-.have_input_transfer {}
-
-.have_input_right-currency {}
-
-.converter__want {}
-
-.want_left-currency {}
-
-.want_transfer {}
-
-.want_right-currency {}
-
-.want__content {}
