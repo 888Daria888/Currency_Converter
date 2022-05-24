@@ -5,6 +5,8 @@ let haveInfo = document.querySelector('.have-info')
 let wantInfo = document.querySelector('.want-info')
 let haveValue = 'RUB'
 let wantValue = 'USD'
+let haveList = document.querySelectorAll('.have-list');
+let wantList = document.querySelectorAll('.want-list');
 
 let menu = document.querySelectorAll('.header-list')
 for (let i = 0; i < menu.length; i++) {
@@ -17,8 +19,44 @@ for (let i = 0; i < menu.length; i++) {
 }
 
 
+fetch(
+   `https://api.exchangerate.host/latest?base=${haveValue}&symbols=${wantValue}&places=4`
+)
+   .then((res) => res.json())
+   .then((data) => {
+      haveInputCours.value = 1;
+      wantInputCours.value = (haveInputCours.value * data.rates[wantValue]).toFixed(4)
+      haveInfo.innerHTML = `1 ${haveValue} = ${wantInputCours.value} ${wantValue}`
+      wantInfo.innerHTML = `1 ${haveValue} = ${wantInputCours.value} ${wantValue}`
+   })
+   .catch((err) => alert('что-то пошло не так'))
 
-let haveList = document.querySelectorAll('.have-list');
+let haveHandler = (e) => {
+   fetch(`https://api.exchangerate.host/latest?base=${haveValue}&symbols=${wantValue}&places=4`)
+      .then((res) => res.json())
+      .then((data) => {
+         wantInputCours.value = (e.target.value * data.rates[wantValue]).toFixed(4)
+         haveInfo.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
+         wantInfo.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
+      })
+      .catch((err) => alert('что-то пошло не так'))
+}
+
+let wantHandler = (e) => {
+   fetch(`https://api.exchangerate.host/latest?base=${haveValue}&symbols=${wantValue}&places=4`)
+      .then((res) => res.json())
+      .then((data) => {
+         haveInputCours.value = (e.target.value / data.rates[wantValue]).toFixed(4)
+         haveInfo.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
+         wantInfo.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
+      })
+      .catch((err) => alert('что-то пошло не так'))
+}
+
+wantInputCours.addEventListener('input', wantHandler)
+
+haveInputCours.addEventListener('input', haveHandler)
+
 haveList.forEach(item => {
    if (haveList[0] || haveList[3]) {
       haveList[0].style.borderRadius = '3px 0px 0px 3px';
@@ -29,12 +67,13 @@ haveList.forEach(item => {
          item.classList.remove('active');
       });
       event.target.classList.add('active');
+      haveValue = item.value
+
       getCurrencyCourse()
-      return haveValue = item.value
    });
 });
 
-let wantList = document.querySelectorAll('.want-list');
+
 wantList.forEach(item => {
    if (wantList[0] || wantList[3]) {
       wantList[0].style.borderRadius = '3px 0px 0px 3px';
@@ -44,14 +83,13 @@ wantList.forEach(item => {
       wantList.forEach(item => {
          item.classList.remove('active');
       });
-      
+
       event.target.classList.add('active');
+      wantValue = item.value
       getCurrencyCourse()
-      return wantValue = item.value
    });
+
 });
-
-
 
 function getCurrencyCourse() {
    if (haveValue === wantValue) {
@@ -65,15 +103,24 @@ function getCurrencyCourse() {
       )
          .then((res) => res.json())
          .then((data) => {
+            haveInputCours.removeEventListener('input', haveHandler);
+            wantInputCours.removeEventListener('input', wantHandler);
             haveInputCours.addEventListener('input', (e) => {
-            wantInputCours.value = e.target.value * data.rates[wantValue]
+               wantInputCours.value = (e.target.value * data.rates[wantValue]).toFixed(4)
+               haveInfo.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
+               wantInfo.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
+            })
+            wantInputCours.addEventListener('input', (e) => {
+               haveInputCours.value = (e.target.value / data.rates[wantValue]).toFixed(4)
+               haveInfo.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
+               wantInfo.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
+            })
+
+            wantInputCours.value = (+(haveInputCours.value) * data.rates[wantValue]).toFixed(4)
+            haveInfo.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
+            wantInfo.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
+
          })
-         wantInputCours.addEventListener('input', (e) => {
-            haveInputCours.value = e.target.value * data.rates[haveValue]
-         })
-            haveCurrency.innerHTML = `${haveInputCours.value} ${haveValue} = ${wantInputCours.value} ${wantValue}`
-            wantCurrency.innerHTML = `${wantInputCours.value} ${wantValue} = ${haveInputCours.value} ${haveValue}`
-         })
-         .catch((err) => alert('упс.что-то пошло не так'))
+         .catch((err) => alert('что-то пошло не так'))
    }
 }
